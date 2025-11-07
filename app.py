@@ -2,7 +2,7 @@
 import pandas as pd
 import streamlit as st
 from io import StringIO
-from modules.utils import get_dir_path
+from modules.utils import getFullPath
 from modules.graphs import getUrl, getEdges
 from modules.charts import makeIcicle, makeSunburst, makeTreemap
 from modules import formats, animated
@@ -19,9 +19,8 @@ st.title('Hierarchical Data Viewer')
 
 file_uploader=st.sidebar.file_uploader('Upload a csv file', type=['csv'])
 file_io=None
-dir_path=get_dir_path()
+default_file=getFullPath('data/employees.csv')
 
-default_file=dir_path+"\data\employees.csv"
 if file_uploader is not None:
     file_io=StringIO(file_uploader.getvalue().decode('utf-8'))
 if file_io:
