@@ -11,6 +11,9 @@ import plotly.graph_objects as go
 import json
 import streamlit.components.v1 as components
 
+@st.cache_data
+def load_data(filename):
+    return pd.read_csv(filename).convert_dtypes()
 
 st.title('Hierarchical Data Viewer')
 
@@ -22,9 +25,9 @@ default_file=dir_path+"\data\employees.csv"
 if file_uploader is not None:
     file_io=StringIO(file_uploader.getvalue().decode('utf-8'))
 if file_io:
-    df_orig=pd.read_csv(file_io).convert_dtypes()
+    df_orig=load_data(file_io)
 else:
-    df_orig=pd.read_csv(default_file)
+    df_orig=load_data(default_file)
 
 df_cols=list(df_orig.columns)
 #Select child and parent columns
